@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anna Weyant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #000;
+    }
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    /* Left sidebar */
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      padding: 3rem 2.5rem;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .sidebar-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+    .sidebar-title:hover {
+      color: #333;
+    }
+    .nav-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .nav-section a {
+      font-size: 0.95rem;
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-section a:hover {
+      color: #000;
+    }
+    /* Main content – carousel area */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: #fff;
+      overflow: hidden;
+    }
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+    .carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: transform 0.4s ease;
+      width: max-content;
+    }
+    .carousel-slide {
+      flex-shrink: 0;
+      width: 420px;
+      padding: 14px;
+      background: linear-gradient(145deg, #8b7355, #6b5344);
+      border-radius: 2px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .carousel-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: top;
+      background: #e8e4e0;
+    }
+    .carousel-slide.center {
+      transform: scale(1);
+      z-index: 1;
+    }
+    .carousel-slide.side {
+      opacity: 0.85;
+    }
+    /* Chevron arrows */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: #f5f5f5;
+      color: #666;
+      font-size: 1.25rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s, color 0.2s;
+    }
+    .carousel-arrow:hover {
+      background: #eee;
+      color: #000;
+    }
+    .carousel-arrow.prev {
+      left: 0;
+    }
+    .carousel-arrow.next {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a href="#" class="sidebar-title">Anna Weyant</a>
+      <nav class="nav-section">
+        <a href="#">2025</a>
+        <a href="#">2024</a>
+        <a href="#">2023</a>
+        <a href="#">2022</a>
+        <a href="#">2021</a>
+        <a href="#">2020</a>
+      </nav>
+      <nav class="nav-section">
+        <a href="#">Books</a>
+        <a href="#">CV</a>
+        <a href="#">Contact</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <div class="carousel-wrapper">
+        <button type="button" class="carousel-arrow prev" aria-label="Previous">‹</button>
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide side">
+              <img src="picture1.png" alt="Artwork">
+            </div>
+            <div class="carousel-slide center">
+              <img src="picture1.png" alt="Artwork">
+            </div>
+            <div class="carousel-slide side">
+              <img src="picture1.png" alt="Artwork">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="carousel-arrow next" aria-label="Next">›</button>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function () {
+      const viewport = document.querySelector('.carousel-viewport');
+      const track = document.getElementById('carouselTrack');
+      const slides = track.querySelectorAll('.carousel-slide');
+      const prevBtn = document.querySelector('.carousel-arrow.prev');
+      const nextBtn = document.querySelector('.carousel-arrow.next');
+      const slideWidth = 420 + 24;
+      let index = 1;
+
+      function updateClasses() {
+        slides.forEach(function (s, i) {
+          s.classList.remove('center', 'side');
+          s.classList.add(i === index ? 'center' : 'side');
+        });
+      }
+
+      function centerSlide() {
+        const vw = viewport.offsetWidth;
+        const tx = vw / 2 - (index * slideWidth + slideWidth / 2);
+        track.style.transform = 'translateX(' + tx + 'px)';
+      }
+
+      function go(delta) {
+        index = (index + delta + slides.length) % slides.length;
+        centerSlide();
+        updateClasses();
+      }
+
+      prevBtn.addEventListener('click', function () { go(-1); });
+      nextBtn.addEventListener('click', function () { go(1); });
+      window.addEventListener('resize', centerSlide);
+      updateClasses();
+      centerSlide();
+    })();
+  </script>
+</body>
+</html>
