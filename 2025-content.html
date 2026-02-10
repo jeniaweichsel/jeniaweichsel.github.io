@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; max-width: 100%; overflow-x: hidden; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; background: #fff; min-height: 100%; height: 100%; display: flex; align-items: stretch; justify-content: center; padding: 1rem; box-sizing: border-box; }
+    .gallery-wrap { position: relative; width: 100%; height: 100%; min-height: 0; overflow: hidden; flex: 1; }
+    .gallery-track { display: flex; height: 100%; transition: transform 0.4s ease; }
+    .gallery-track.no-transition { transition: none; }
+    .gallery-slide { flex: 0 0 100%; width: 100%; height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; box-sizing: border-box; }
+    .gallery-slide { position: relative; }
+    .gallery-slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+    .gallery-caption {
+      position: absolute;
+      top: 0.35rem;
+      bottom: auto;
+      right: 0.75rem;
+      text-align: left;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: #000;
+      line-height: 1.4;
+    }
+    .gallery-caption .title { display: block; min-height: 1.4em; }
+    .gallery-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; min-width: 44px; border: none; background: transparent; color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 0.8rem; font-weight: 400;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1;
+      transition: color 0.2s; z-index: 2;
+    }
+    .gallery-arrow:hover { color: #722F37; }
+    .gallery-arrow.prev { left: 1rem; }
+    .gallery-arrow.next { right: 1rem; }
+    @media (max-width: 480px) {
+      .gallery-arrow { width: 36px; height: 36px; min-width: 36px; font-size: 0.8rem; }
+      .gallery-arrow.prev { left: 0.5rem; }
+      .gallery-arrow.next { right: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery-wrap">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-slide" data-clone="last"><img src="And who's to judge.jpg" alt="And who's to judge"><div class="gallery-caption"><span class="title">'AND WHO'S TO JUDGE'</span><br>Oil on linen, 8x10in</div></div>
+      <div class="gallery-slide"><img src="game Uno .jpeg" alt="Game Uno"><div class="gallery-caption"><span class="title">'GAME UNO'</span><br>Oil on linen, 24x30in</div></div>
+      <div class="gallery-slide"><img src="picture2.png" alt="Paul"><div class="gallery-caption"><span class="title">'PAUL'</span><br>Oil on linen, 16x20in</div></div>
+      <div class="gallery-slide"><img src="history of the fall.jpeg" alt="History of the Fall"><div class="gallery-caption"><span class="title">'THE HISTORY OF THE FALL'</span><br>Oil on linen, 20x24in</div></div>
+      <div class="gallery-slide"><img src="And who's to judge.jpg" alt="And who's to judge"><div class="gallery-caption"><span class="title">'AND WHO'S TO JUDGE'</span><br>Oil on linen, 8x10in</div></div>
+      <div class="gallery-slide" data-clone="first"><img src="game Uno .jpeg" alt="Game Uno"><div class="gallery-caption"><span class="title">'GAME UNO'</span><br>Oil on linen, 24x30in</div></div>
+    </div>
+    <button type="button" class="gallery-arrow prev" id="galleryPrev" aria-label="Previous">‹</button>
+    <button type="button" class="gallery-arrow next" id="galleryNext" aria-label="Next">›</button>
+  </div>
+  <script>
+    (function() {
+      var track = document.getElementById('galleryTrack');
+      var prevBtn = document.getElementById('galleryPrev');
+      var nextBtn = document.getElementById('galleryNext');
+      var total = 6;
+      var realCount = 4;
+      var index = 1;
+      function updateSlide(noTransition) {
+        if (noTransition) track.classList.add('no-transition');
+        track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        if (noTransition) { track.offsetHeight; track.classList.remove('no-transition'); }
+      }
+      function onTransitionEnd() {
+        if (index === 0) { index = realCount; updateSlide(true); }
+        else if (index === total - 1) { index = 1; updateSlide(true); }
+      }
+      track.addEventListener('transitionend', onTransitionEnd);
+      function goPrev() { index = (index - 1 + total) % total; updateSlide(); }
+      function goNext() { index = (index + 1) % total; updateSlide(); }
+      prevBtn.addEventListener('click', goPrev);
+      nextBtn.addEventListener('click', goNext);
+      updateSlide(true);
+    })();
+  </script>
+</body>
+</html>

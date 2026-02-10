@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — JENIA WEICHSEL</title>
+  <link rel="icon" type="image/png" href="picture2.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      color: #000;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    .layout { min-height: 100vh; }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 155px;
+      padding: 1.25rem 2.5rem 3rem;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .sidebar-title {
+      margin-bottom: 3.5rem;
+      display: block;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      line-height: 0.95;
+    }
+    .sidebar-title:hover { color: #000; }
+    .sidebar .nav-section:first-of-type { margin-bottom: 0; }
+    .sidebar .sidebar-bottom { margin-top: 1.25rem; }
+    .nav-section { display: flex; flex-direction: column; gap: 0.75rem; }
+    .sidebar-bottom .nav-section { gap: 1.25rem; }
+    .nav-section a {
+      font-size: 0.8rem;
+      letter-spacing: -0.01em;
+      color: #000;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-section a:hover { color: #722F37; }
+    .nav-section-uppercase a { text-transform: uppercase; }
+    .sidebar-bottom { display: flex; flex-direction: column; gap: 1.25rem; }
+    .sidebar-instagram {
+      display: block;
+      color: #722F37;
+      transition: color 0.2s;
+    }
+    .sidebar-instagram:hover { color: #8B3A42; }
+    .sidebar-instagram svg { display: block; width: 12px; height: 12px; }
+    .main {
+      margin-left: 155px;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4.75rem 4rem 0 4rem;
+      background: #fff;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+    .cv-content { max-width: 100%; width: 100%; }
+    .cv-top { display: flex; align-items: stretch; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .cv-photo-wrap { flex-shrink: 0; max-width: 300px; min-height: 0; display: flex; flex-direction: column; align-self: stretch; }
+    .cv-content .cv-photo {
+      flex: 1 0 0;
+      min-height: 0;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: top center;
+      display: block;
+      align-self: center;
+    }
+    .cv-text { flex: 1; min-width: 0; max-width: 100%; overflow-wrap: break-word; }
+    .cv-content h2 {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+    .cv-content h2:first-of-type { margin-top: 0; }
+    .cv-content p {
+      font-size: 0.8rem;
+      letter-spacing: -0.01em;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      overflow-wrap: break-word;
+    }
+    .cv-content .cv-year {
+      display: inline-block;
+      min-width: 2.25em;
+    }
+    .cv-content strong { font-weight: 400; }
+    .cv-content p:last-child { margin-bottom: 0; }
+    .cv-content a { color: #000; text-decoration: none; overflow-wrap: break-word; }
+    .cv-content a:hover { color: #722F37; }
+    .cv-bio { margin-top: 2rem; max-width: 100%; }
+    .cv-bio p { font-size: 0.8rem; letter-spacing: -0.01em; line-height: 1.6; margin-bottom: 1rem; overflow-wrap: break-word; }
+    .cv-bio p:last-child { margin-bottom: 0; }
+    .page-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 2rem 1rem 2.5rem;
+      font-size: 0.6rem;
+      letter-spacing: -0.01em;
+      color: #000;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a href="index.html" class="sidebar-title">Jenia<br>Weichsel</a>
+      <nav class="nav-section">
+        <a href="2025.html" target="_blank" rel="noopener noreferrer">2025</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <nav class="nav-section nav-section-uppercase">
+          <a href="cv.html">CV</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a href="https://www.instagram.com/jeniaweichsel/?hl=en" class="sidebar-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="cv-content">
+        <div class="cv-top">
+          <div class="cv-photo-wrap">
+            <img src="my photo.jpeg" alt="Jenia Weichsel" class="cv-photo">
+          </div>
+          <div class="cv-text">
+            <h2>Education</h2>
+        <p><strong class="cv-year">2002</strong> Moscow Aviation University, Moscow, Russian Federation. MA in Airspace Engineering</p>
+        <p><strong class="cv-year">2011</strong> Moscow State Institute of International Relations. PhD in Political Science, ABD</p>
+
+        <h2>Exhibitions</h2>
+        <p><strong>2025</strong> Group Exhibition Pacific Art League, 668 Ramona Street, Palo Alto, CA 94301</p>
+        <p><strong>2025</strong> Group Exhibition “Endless Knot”, Kate Oh Gallery, 31 E 72nd Street, New York, NY 10021</p>
+
+        <h2>Press</h2>
+        <p><strong>2025</strong> <a href="https://whitehotmagazine.com/articles/jenia-weichsel-by-noah-becker/6955" target="_blank" rel="noopener noreferrer">Interview with Noah Becker, editor-in-chief of ‘Whitehot Magazine’</a></p>
+        <p><strong>2025</strong> <a href="https://www.meer.com/en/90403-endless-knot" target="_blank" rel="noopener noreferrer">MEER Magazine: “Endless Knot” Review</a></p>
+          </div>
+        </div>
+        <div class="cv-bio">
+          <p>Jenia Weichsel (b. 1980, Tajikistan) is a contemporary figurative painter whose work explores the quiet intensity of human emotions and the immediacy of lived experience. Her paintings are celebrated for their atmospheric stillness, intimate depth, and theatrical composition, often capturing a single suspended moment that resonates beyond the frame. Raised in Moscow, Russia and having lived in New York City before establishing her studio in Palo Alto, California, Weichsel brings a disciplined, methodical approach shaped by a former academic career and engineering background.</p>
+          <p>Working primarily in oil on hand-prepared linen, she uses traditional materials such as rabbit-skin glue and gesso to create luminous, layered surfaces. Her figurative work draws on Renaissance techniques—subtle modulation of light, atmosphere, and softened form—while engaging a contemporary visual language that speaks to the emotional immediacy and psychological intensity of modern portraiture.</p>
+          <p>Since beginning her professional painting career in 2021, Weichsel has been recognized for her technical mastery, emotional nuance, and distinctive artistic presence, establishing herself as a compelling voice in contemporary figurative painting.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="page-footer">© 2026 JENIA WEICHSEL. All Rights Reserved.</footer>
+</body>
+</html>
