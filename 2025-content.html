@@ -41,6 +41,34 @@
       .gallery-arrow.prev { left: 0.5rem; }
       .gallery-arrow.next { right: 0.5rem; }
     }
+    /* Mobile: keep caption and arrows inside viewport, scale images properly */
+    @media (max-width: 1023px) {
+      html, body { min-height: 100%; height: auto; }
+      .gallery-wrap { min-height: 60vh; position: relative; overflow-x: hidden; overflow-y: visible; }
+      .gallery-track { min-height: 60vh; }
+      .gallery-slide {
+        padding: 0 3rem 2.5rem;
+        min-height: 60vh;
+      }
+      .gallery-slide img {
+        max-width: 100%;
+        max-height: 65vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+      .gallery-caption {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 3rem;
+        right: 3rem;
+        top: auto;
+        text-align: left;
+        max-width: calc(100% - 6rem);
+      }
+      .gallery-arrow.prev { left: 0.35rem; }
+      .gallery-arrow.next { right: 0.35rem; }
+    }
   </style>
 </head>
 <body>
