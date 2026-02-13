@@ -164,6 +164,33 @@
       color: #000;
       background: #fff;
     }
+    /* Mobile: apply only below 1024px; desktop unchanged above */
+    @media (max-width: 1023px) {
+      body { overflow-x: hidden; }
+      .layout { display: flex; flex-direction: column; min-height: 100vh; }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 1rem 1.25rem 0.75rem;
+        gap: 0 1.25rem;
+      }
+      .sidebar-title { margin-bottom: 0; margin-right: auto; font-size: 1.5rem; }
+      .sidebar .nav-section { flex-direction: row; gap: 1rem; margin-bottom: 0; }
+      .sidebar .nav-section:first-of-type { margin-bottom: 0; }
+      .sidebar .sidebar-bottom { flex-direction: row; margin-top: 0; gap: 1rem; }
+      .main {
+        margin-left: 0;
+        flex: 1;
+        min-height: 0;
+        height: auto;
+        padding: 1rem 1.25rem 4rem;
+      }
+      .main-content { min-height: 50vh; }
+      .main-home img { max-height: 70vh; }
+    }
   </style>
 </head>
 <body>
