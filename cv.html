@@ -132,52 +132,19 @@
       color: #000;
       background: #fff;
     }
-    @media (min-width: 1024px) {
-      .main {
-        position: relative;
-        padding: 0;
-        align-items: flex-start;
-        justify-content: flex-start;
-        overflow: hidden;
-        height: 100vh;
-        min-height: 100vh;
-      }
-      .main .cv-content {
-        position: absolute;
-        top: 1.5rem;
-        left: 4rem;
-        right: 4rem;
-        width: calc(100% - 8rem);
-        transform-origin: top center;
-        transform: scale(0.82);
-        padding: 0;
-      }
-      .cv-top { margin-bottom: 1rem; gap: 1rem; }
-      .cv-photo-wrap { max-width: 220px; }
-      .cv-content h2 { margin-top: 1.25rem; margin-bottom: 0.5rem; }
-      .cv-content p { margin-bottom: 0.35rem; }
-      .cv-bio { margin-top: 1.25rem; }
-      .cv-bio p { margin-bottom: 0.5rem; }
-      .cv-content h2, .cv-content p, .cv-bio p { font-size: 0.976rem; }
-    }
     @media (max-width: 1023px) {
       body { overflow-x: hidden; }
-      .layout { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+      .layout { display: flex; flex-direction: column; min-height: 100vh; }
       .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         width: 100%;
-        z-index: 10;
-        background: #fff;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         padding: 1rem 1.25rem 0.25rem;
         gap: 0 1.25rem;
       }
-      .sidebar-title { width: 100%; margin-bottom: 0.75rem; }
+      .sidebar-title { width: 100%; margin-bottom: 0.75rem; font-size: 1.9rem; }
       .sidebar-nav-row {
         width: 100%;
         display: flex;
@@ -189,7 +156,7 @@
       .sidebar .nav-section { flex-direction: row; gap: 1rem; margin-bottom: 0; flex-wrap: nowrap; }
       .sidebar .nav-section:first-of-type { margin-bottom: 0; }
       .sidebar .sidebar-bottom { flex-direction: row; margin-top: 0; gap: 1rem; flex-wrap: nowrap; }
-      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 5.5rem 1.25rem 4rem 1.25rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 0.25rem 1.25rem 4rem; -webkit-overflow-scrolling: touch; overflow-y: auto; }
       .cv-photo-wrap { max-width: 200px; min-height: 140px; }
       .cv-content .cv-photo { min-height: 140px; max-width: 200px; }
     }
