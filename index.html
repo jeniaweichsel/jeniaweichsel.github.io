@@ -110,7 +110,7 @@
       width: 12px;
       height: 12px;
     }
-    /* Main content - scrolls independently, starts below sidebar title; same padding so content stays in one place */
+    /* Main content - scrolls independently; images under sidebar title line */
     .main {
       margin-left: 155px;
       min-height: 100vh;
@@ -118,7 +118,7 @@
       display: flex;
       align-items: stretch;
       justify-content: center;
-      padding: 4.75rem 4rem 0 4rem;
+      padding: 7rem 4rem 0 4rem;
       background: #fff;
       overflow-y: auto;
       overflow-x: hidden;
@@ -177,13 +177,36 @@
       color: #000;
       background: #fff;
     }
-    /* Mobile: apply only below 1024px; desktop unchanged above */
+    @media (min-width: 1024px) {
+      .sidebar { background: linear-gradient(to right, #D4EDE8 0%, #D4EDE8 50%, rgba(212, 237, 232, 0.85) 80%, rgba(212, 237, 232, 0) 100%); }
+      .sidebar-title { max-width: 100%; font-size: 1.1rem; overflow-wrap: normal; word-break: normal; white-space: normal; }
+      body.cv-frame-active .main { overflow: hidden; padding-top: 2rem; }
+      body.cv-frame-active .main-content { position: relative; overflow: hidden; height: 100%; }
+      body.cv-frame-active .main-iframe.active {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 122%;
+        transform: scale(0.82);
+        transform-origin: top center;
+      }
+      body.gallery-frame-active .main { padding-top: 2rem; }
+      body.gallery-frame-active .main-content { height: 100%; min-height: 0; }
+      body.gallery-frame-active .main-iframe.active { height: 100%; width: 100%; }
+    }
+    /* Mobile: fixed sidebar, main scrolls; same behavior as CV */
     @media (max-width: 1023px) {
       body { overflow-x: hidden; }
-      .layout { display: flex; flex-direction: column; min-height: 100vh; }
+      .layout { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
       .sidebar {
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         width: 100%;
+        z-index: 10;
+        background: #fff;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
@@ -207,7 +230,9 @@
         flex: 1;
         min-height: 0;
         display: flex;
-        padding: 0.25rem 0.5rem 4rem;
+        padding: 5.5rem 0.5rem 4rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .main-content { flex: 1; min-height: 0; display: flex; }
       .main-home {
@@ -227,7 +252,6 @@
         object-position: center;
       }
       .main-iframe.active { min-height: 60vh; flex: 1; min-height: 0; }
-      .main { -webkit-overflow-scrolling: touch; }
     }
   </style>
 </head>
@@ -276,12 +300,24 @@
         contentFrame.classList.remove('active');
         contentFrame.src = 'about:blank';
         document.querySelector('.main').scrollTop = 0;
+        document.body.classList.remove('cv-frame-active');
+        document.body.classList.remove('gallery-frame-active');
       }
       function showFrame(src) {
         mainHome.classList.add('hidden');
         contentFrame.classList.add('active');
         contentFrame.src = src;
         document.querySelector('.main').scrollTop = 0;
+        if (src === 'cv-content.html') {
+          document.body.classList.add('cv-frame-active');
+          document.body.classList.remove('gallery-frame-active');
+        } else if (src === '2025-content.html') {
+          document.body.classList.add('gallery-frame-active');
+          document.body.classList.remove('cv-frame-active');
+        } else {
+          document.body.classList.remove('cv-frame-active');
+          document.body.classList.remove('gallery-frame-active');
+        }
       }
       document.querySelector('.sidebar-title').addEventListener('click', function(e) {
         e.preventDefault();
