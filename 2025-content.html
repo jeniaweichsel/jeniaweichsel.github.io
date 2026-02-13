@@ -41,7 +41,7 @@
       .gallery-arrow.prev { left: 0.5rem; }
       .gallery-arrow.next { right: 0.5rem; }
     }
-    /* Mobile only: same-size image area, arrows centered on image, caption under image with fixed gap */
+    /* Mobile only: max image size (arrows only), caption tight, works portrait & landscape */
     @media (max-width: 1023px) {
       html, body { min-height: 100%; height: auto; }
       .gallery-wrap { min-height: 60vh; position: relative; overflow-x: hidden; overflow-y: visible; }
@@ -50,14 +50,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 3.5rem 1rem;
-        gap: 0.5rem;
+        padding: 0 2.75rem 0.75rem;
+        gap: 0.35rem;
         min-height: 60vh;
         box-sizing: border-box;
       }
       .gallery-slide img {
         width: 100%;
-        height: 52vh;
+        height: 54vh;
         max-width: 100%;
         object-fit: contain;
         object-position: center;
@@ -68,16 +68,18 @@
         align-self: flex-end;
         text-align: right;
         font-size: 0.65rem;
-        line-height: 1.1;
+        line-height: 1;
         max-width: 100%;
+        margin: 0;
+        padding: 0;
       }
-      .gallery-caption .title { display: block; min-height: 0; margin-bottom: 0; }
+      .gallery-caption .title { display: block; min-height: 0; margin: 0 0 0 0; line-height: 1; }
       .gallery-arrow {
-        top: 26vh;
+        top: 27vh;
         transform: translateY(-50%);
       }
-      .gallery-arrow.prev { left: 0.5rem; }
-      .gallery-arrow.next { right: 0.5rem; }
+      .gallery-arrow.prev { left: 0.35rem; }
+      .gallery-arrow.next { right: 0.35rem; }
     }
   </style>
 </head>
