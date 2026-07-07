@@ -93,6 +93,9 @@
       height: 100%;
       min-height: 0;
       overflow: hidden;
+      --gallery-img-max-w: 500px;
+      --gallery-img-max-h: 608px;
+      --gallery-arrow-gap: 0.35rem;
     }
     .gallery-track {
       display: flex;
@@ -111,16 +114,24 @@
       align-items: center;
       justify-content: center;
       padding: 0 0.5rem;
-    }
-    .gallery-slide {
       position: relative;
+      box-sizing: border-box;
+    }
+    .gallery-slide-img-wrap {
+      width: min(50vw, var(--gallery-img-max-w));
+      height: min(74vh, var(--gallery-img-max-h));
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .gallery-slide img {
+      width: 100%;
+      height: 100%;
       max-width: 100%;
       max-height: 100%;
-      width: auto;
-      height: auto;
       object-fit: contain;
+      object-position: center;
       display: block;
     }
     .gallery-caption {
@@ -140,14 +151,12 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
       border: none;
       background: transparent;
       color: #000;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 0.8rem;
-      font-weight: 400;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -155,27 +164,20 @@
       padding: 0;
       line-height: 1;
       transition: color 0.2s;
+      z-index: 2;
     }
+    .gallery-arrow svg { width: 30px; height: 30px; display: block; }
     .gallery-arrow:hover { color: #722F37; }
-    .gallery-arrow.prev { left: 1rem; }
-    .gallery-arrow.next { right: 1rem; }
+    .gallery-arrow.prev { left: calc(50% - (min(25vw, calc(var(--gallery-img-max-w) / 2))) - 40px - var(--gallery-arrow-gap)); }
+    .gallery-arrow.next { right: calc(50% - (min(25vw, calc(var(--gallery-img-max-w) / 2))) - 40px - var(--gallery-arrow-gap)); }
     /* Desktop only: fixed arrows, gap from image, max image size, caption top-right two lines no gap */
     @media (min-width: 1024px) {
       .gallery-slide {
-        padding: 0.35rem 4.5rem 0.5rem 4.5rem;
+        padding: 0.35rem 3.25rem 0.5rem 3.25rem;
       }
       .gallery-slide-img-wrap {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 0;
-      }
-      .gallery-slide img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
+        width: min(46vw, var(--gallery-img-max-w));
+        height: min(76vh, var(--gallery-img-max-h));
       }
       .gallery-caption {
         top: 0.35rem;
@@ -221,6 +223,23 @@
       .sidebar .sidebar-bottom { flex-direction: row; margin-top: 0; gap: 1rem; flex-wrap: nowrap; }
       .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 0.25rem 1rem 4rem 1rem; }
       .gallery-wrap { min-height: 60vh; }
+      .gallery-slide {
+        padding: 0 2.25rem 0.75rem;
+      }
+      .gallery-slide-img-wrap {
+        width: min(84vw, var(--gallery-img-max-w));
+        height: min(64vh, var(--gallery-img-max-h));
+      }
+      .gallery-arrow {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .gallery-arrow svg { width: 26px; height: 26px; }
+      .gallery-arrow.prev { left: calc(50% - (min(42vw, calc(var(--gallery-img-max-w) / 2))) - 36px - var(--gallery-arrow-gap)); }
+      .gallery-arrow.next { right: calc(50% - (min(42vw, calc(var(--gallery-img-max-w) / 2))) - 36px - var(--gallery-arrow-gap)); }
     }
   </style>
 </head>
@@ -253,15 +272,18 @@
     <main class="main">
       <div class="gallery-wrap">
         <div class="gallery-track" id="galleryTrack">
-          <div class="gallery-slide" data-clone="last"><img src="game Uno .jpeg" alt="Game Uno"><div class="gallery-caption"><span class="title">'GAME UNO'</span><br>Oil on linen, 24x30in</div></div>
-          <div class="gallery-slide"><img src="picture2.png" alt="Paul"><div class="gallery-caption"><span class="title">'PAUL'</span><br>Oil on linen, 16x20in</div></div>
-          <div class="gallery-slide"><img src="history of the fall.jpeg" alt="The History of the Fall"><div class="gallery-caption"><span class="title">'THE HISTORY OF THE FALL'</span><br>Oil on linen, 20x24in</div></div>
-          <div class="gallery-slide"><img src="And who's to judge.jpg" alt="And who's to judge"><div class="gallery-caption"><span class="title">'AND WHO'S TO JUDGE'</span><br>Oil on linen, 8x10in</div></div>
-          <div class="gallery-slide"><img src="game Uno .jpeg" alt="Game Uno"><div class="gallery-caption"><span class="title">'GAME UNO'</span><br>Oil on linen, 24x30in</div></div>
-          <div class="gallery-slide" data-clone="first"><img src="picture2.png" alt="Paul"><div class="gallery-caption"><span class="title">'PAUL'</span><br>Oil on linen, 16x20in</div></div>
+          <div class="gallery-slide" data-clone="last"><div class="gallery-slide-img-wrap"><img src="vatican.jpeg" alt="Vatican"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="the other cheek.jpeg" alt="The Other Cheek"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="serene.jpeg" alt="Serene"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="game Uno .jpeg" alt="Game Uno"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="picture2.png" alt="Paul"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="history of the fall.jpeg" alt="The History of the Fall"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="And who's to judge.jpg" alt="And who's to judge"></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="vatican.jpeg" alt="Vatican"></div></div>
+          <div class="gallery-slide" data-clone="first"><div class="gallery-slide-img-wrap"><img src="the other cheek.jpeg" alt="The Other Cheek"></div></div>
         </div>
-        <button type="button" class="gallery-arrow prev" id="galleryPrev" aria-label="Previous">‹</button>
-        <button type="button" class="gallery-arrow next" id="galleryNext" aria-label="Next">›</button>
+        <button type="button" class="gallery-arrow prev" id="galleryPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg></button>
+        <button type="button" class="gallery-arrow next" id="galleryNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg></button>
       </div>
     </main>
   </div>
@@ -271,8 +293,8 @@
       var track = document.getElementById('galleryTrack');
       var prevBtn = document.getElementById('galleryPrev');
       var nextBtn = document.getElementById('galleryNext');
-      var total = 6;
-      var realCount = 4;
+      var total = 9;
+      var realCount = 7;
       var index = 1;
       function updateSlide(noTransition) {
         if (noTransition) track.classList.add('no-transition');
