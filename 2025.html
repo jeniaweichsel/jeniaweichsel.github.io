@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2025 — JENIA WEICHSEL</title>
   <link rel="icon" type="image/png" href="picture2.png">
+  <link rel="stylesheet" href="https://use.typekit.net/ekp6eyt.css">
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP1YV96CS"></script>
   <script>
@@ -18,12 +19,31 @@
     body {
       min-height: 100vh;
       background: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 300;
+      font-family: var(--font-family);
+      font-weight: 400;
       color: #000;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+    }
+    :root {
+      --sidebar-w: 310px;
+      --sidebar-gap: calc(var(--sidebar-w) / 2);
+      --content-top: 1.25rem;
+      --content-x: 1.5rem;
+      --footer-h: 2.5rem;
+      --content-h: calc(100vh - var(--content-top) - var(--footer-h));
+      --font-title: "grad", "Grad", "Times New Roman", Times, serif;
+      --font-family: var(--font-title);
+      --text-size-content: 0.7rem;
+      --text-size-footer: 0.55rem;
+    }
+    @font-face {
+      font-family: "grad";
+      src: url("https://use.typekit.net/af/83a95b/000000000000000077359721/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
     .layout { min-height: 100vh; }
     .sidebar {
@@ -31,20 +51,23 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 155px;
+      width: var(--sidebar-w);
       padding: 1.25rem 2.5rem 3rem;
       background: #fff;
       display: flex;
       flex-direction: column;
       gap: 0;
+      container-type: inline-size;
+      font-family: var(--font-family);
     }
     .sidebar-title {
       margin-bottom: 3.5rem;
       display: block;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      width: 100%;
+      font-family: var(--font-title);
+      font-size: clamp(1rem, 20cqi, 4.5rem);
+      font-weight: 400;
+      letter-spacing: 0.005em;
       text-transform: uppercase;
       color: #000;
       text-decoration: none;
@@ -56,43 +79,48 @@
     .nav-section { display: flex; flex-direction: column; gap: 0.75rem; }
     .sidebar-bottom .nav-section { gap: 1.25rem; }
     .nav-section a {
+      font-family: var(--font-family);
       font-size: 0.8rem;
-      letter-spacing: -0.01em;
+      letter-spacing: 0.005em;
       color: #000;
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-section a:hover { color: #722F37; }
+    .nav-section a:hover { color: #000; }
     .nav-section-uppercase a { text-transform: uppercase; }
     .sidebar-bottom { display: flex; flex-direction: column; gap: 1.25rem; }
     .sidebar-instagram {
       display: block;
-      color: #722F37;
+      color: #000;
       transition: color 0.2s;
     }
-    .sidebar-instagram:hover { color: #8B3A42; }
+    .sidebar-instagram:hover { color: #000; }
     .sidebar-instagram svg { display: block; width: 12px; height: 12px; }
     .main {
-      margin-left: 155px;
+      margin-left: var(--sidebar-w);
       min-height: 100vh;
       height: 100vh;
       display: flex;
-      align-items: stretch;
+      align-items: flex-start;
       justify-content: center;
-      padding: 1rem 2rem 0 2rem;
+      padding: var(--content-top) var(--sidebar-gap) var(--footer-h) var(--sidebar-gap);
       background: #fff;
       overflow: hidden;
       max-width: 100%;
+      box-sizing: border-box;
+      font-family: var(--font-family);
+      font-size: var(--text-size-content);
     }
     .gallery-wrap {
-      position: relative;
       width: 100%;
       height: 100%;
       min-height: 0;
+    }
+    .gallery-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      --gallery-img-max-w: 500px;
-      --gallery-img-max-h: 608px;
-      --gallery-arrow-gap: 0.35rem;
     }
     .gallery-track {
       display: flex;
@@ -108,27 +136,27 @@
       height: 100%;
       min-height: 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 0 0.5rem;
+      padding: 0;
       position: relative;
       box-sizing: border-box;
     }
     .gallery-slide-img-wrap {
-      width: min(50vw, var(--gallery-img-max-w));
-      height: min(74vh, var(--gallery-img-max-h));
+      height: 100%;
+      width: auto;
+      max-width: 100%;
       flex-shrink: 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
     }
     .gallery-slide img {
-      width: 100%;
       height: 100%;
+      width: auto;
       max-width: 100%;
-      max-height: 100%;
       object-fit: contain;
-      object-position: center;
+      object-position: center top;
       display: block;
     }
     .gallery-caption {
@@ -137,9 +165,9 @@
       bottom: auto;
       right: 0.75rem;
       text-align: left;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 0.8rem;
-      font-weight: 300;
+      font-family: var(--font-family);
+      font-size: var(--text-size-content);
+      font-weight: 400;
       color: #000;
       line-height: 1.4;
     }
@@ -148,9 +176,9 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      min-width: 40px;
+      width: 1.25rem;
+      height: 2.75rem;
+      min-width: 0;
       border: none;
       background: transparent;
       color: #000;
@@ -161,42 +189,25 @@
       padding: 0;
       line-height: 1;
       transition: color 0.2s;
-      z-index: 2;
+      z-index: 3;
     }
-    .gallery-arrow svg { width: 30px; height: 30px; display: block; }
-    .gallery-arrow:hover { color: #722F37; }
-    .gallery-arrow.prev { left: calc(50% - (min(25vw, calc(var(--gallery-img-max-w) / 2))) - 40px - var(--gallery-arrow-gap)); }
-    .gallery-arrow.next { right: calc(50% - (min(25vw, calc(var(--gallery-img-max-w) / 2))) - 40px - var(--gallery-arrow-gap)); }
-    /* Desktop only: fixed arrows, gap from image, max image size, caption top-right two lines no gap */
-    @media (min-width: 1024px) {
-      .gallery-slide {
-        padding: 0.35rem 3.25rem 0.5rem 3.25rem;
-      }
-      .gallery-slide-img-wrap {
-        width: min(46vw, var(--gallery-img-max-w));
-        height: min(76vh, var(--gallery-img-max-h));
-      }
-      .gallery-caption {
-        top: 0.35rem;
-        right: 0.75rem;
-        line-height: 1;
-      }
-      .gallery-caption .title { display: block; min-height: 0; margin: 0; line-height: 1; }
-    }
+    .gallery-arrow svg { width: 1.125rem; height: 1.125rem; display: block; }
+    .gallery-arrow:hover { color: #000; }
     .page-footer {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       padding: 1rem 2rem 1rem 2.5rem;
-      font-size: 0.6rem;
-      letter-spacing: -0.01em;
+      font-family: var(--font-family);
+      font-size: var(--text-size-footer);
+      letter-spacing: 0.005em;
       color: #000;
       background: #fff;
     }
     @media (max-width: 1023px) {
       body { overflow-x: hidden; }
-      .layout { display: flex; flex-direction: column; min-height: 100vh; }
+      .layout { display: flex; flex-direction: column; min-height: 100vh; height: 100vh; }
       .sidebar {
         position: relative;
         width: 100%;
@@ -205,8 +216,9 @@
         align-items: center;
         padding: 1rem 1.25rem 0.25rem;
         gap: 0 1.25rem;
+        flex-shrink: 0;
       }
-      .sidebar-title { width: 100%; margin-bottom: 0.75rem; font-size: 1.9rem; }
+      .sidebar-title { width: 100%; margin-bottom: 0.75rem; font-size: clamp(1rem, 20cqi, 2.25rem); }
       .sidebar-nav-row {
         width: 100%;
         display: flex;
@@ -218,39 +230,23 @@
       .sidebar .nav-section { flex-direction: row; gap: 1rem; margin-bottom: 0; flex-wrap: nowrap; }
       .sidebar .nav-section:first-of-type { margin-bottom: 0; }
       .sidebar .sidebar-bottom { flex-direction: row; margin-top: 0; gap: 1rem; flex-wrap: nowrap; }
-      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 0.25rem 1rem 4rem 1rem; }
-      .gallery-wrap { min-height: 60vh; }
-      .gallery-slide {
-        padding: 0 2.25rem 0.75rem;
-      }
-      .gallery-slide-img-wrap {
-        width: min(84vw, var(--gallery-img-max-w));
-        height: min(64vh, var(--gallery-img-max-h));
-      }
-      .gallery-arrow {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      .gallery-arrow svg { width: 26px; height: 26px; }
-      .gallery-arrow.prev { left: calc(50% - (min(42vw, calc(var(--gallery-img-max-w) / 2))) - 36px - var(--gallery-arrow-gap)); }
-      .gallery-arrow.next { right: calc(50% - (min(42vw, calc(var(--gallery-img-max-w) / 2))) - 36px - var(--gallery-arrow-gap)); }
+      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 0 var(--content-x) var(--footer-h); }
+      .gallery-arrow { width: 1.5rem; height: 3rem; }
+      .gallery-arrow svg { width: 1.25rem; height: 1.25rem; }
     }
   </style>
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <a href="index.html" class="sidebar-title">Jenia<br>Weichsel</a>
+      <a href="index.html" class="sidebar-title" target="_blank" rel="noopener noreferrer">Jenia<br>Weichsel</a>
       <div class="sidebar-nav-row">
         <nav class="nav-section">
-          <a href="2025.html">2025</a>
+          <a href="2025.html" target="_blank" rel="noopener noreferrer">WORKS</a>
         </nav>
         <div class="sidebar-bottom">
           <nav class="nav-section nav-section-uppercase">
-            <a href="cv.html">ABOUT</a>
+            <a href="cv.html" target="_blank" rel="noopener noreferrer">ABOUT</a>
           </nav>
 <a href="https://www.instagram.com/jeniaweichsel/?hl=en" class="sidebar-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -262,6 +258,7 @@
     </aside>
     <main class="main">
       <div class="gallery-wrap">
+        <div class="gallery-viewport">
         <div class="gallery-track" id="galleryTrack">
           <div class="gallery-slide" data-clone="last"><div class="gallery-slide-img-wrap"><img src="vatican.jpeg" alt="Vatican"></div></div>
           <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="the other cheek.jpeg" alt="The Other Cheek"></div></div>
@@ -273,8 +270,9 @@
           <div class="gallery-slide"><div class="gallery-slide-img-wrap"><img src="vatican.jpeg" alt="Vatican"></div></div>
           <div class="gallery-slide" data-clone="first"><div class="gallery-slide-img-wrap"><img src="the other cheek.jpeg" alt="The Other Cheek"></div></div>
         </div>
-        <button type="button" class="gallery-arrow prev" id="galleryPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg></button>
-        <button type="button" class="gallery-arrow next" id="galleryNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg></button>
+        <button type="button" class="gallery-arrow prev" id="galleryPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="14 5 8 12 14 19"/></svg></button>
+        <button type="button" class="gallery-arrow next" id="galleryNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="10 5 16 12 10 19"/></svg></button>
+        </div>
       </div>
     </main>
   </div>
@@ -282,11 +280,36 @@
   <script>
     (function() {
       var track = document.getElementById('galleryTrack');
+      var viewport = document.querySelector('.gallery-viewport');
       var prevBtn = document.getElementById('galleryPrev');
       var nextBtn = document.getElementById('galleryNext');
       var total = 9;
       var realCount = 7;
       var index = 1;
+      var arrowGap = 8;
+
+      function positionArrows() {
+        var slide = track.children[index];
+        if (!slide || !viewport || !prevBtn || !nextBtn) return;
+        var img = slide.querySelector('img');
+        if (!img) return;
+        var vpRect = viewport.getBoundingClientRect();
+        var imgRect = img.getBoundingClientRect();
+        var centerY = imgRect.top - vpRect.top + (imgRect.height / 2);
+        prevBtn.style.top = centerY + 'px';
+        nextBtn.style.top = centerY + 'px';
+        prevBtn.style.transform = 'translateY(-50%)';
+        nextBtn.style.transform = 'translateY(-50%)';
+        prevBtn.style.left = Math.max(0, imgRect.left - vpRect.left - arrowGap - prevBtn.offsetWidth) + 'px';
+        nextBtn.style.left = (imgRect.right - vpRect.left + arrowGap) + 'px';
+      }
+
+      function scheduleArrowPosition() {
+        requestAnimationFrame(function() {
+          requestAnimationFrame(positionArrows);
+        });
+      }
+
       function updateSlide(noTransition) {
         if (noTransition) track.classList.add('no-transition');
         track.style.transform = 'translateX(-' + (index * 100) + '%)';
@@ -294,7 +317,9 @@
           track.offsetHeight;
           track.classList.remove('no-transition');
         }
+        scheduleArrowPosition();
       }
+
       function onTransitionEnd() {
         if (index === 0) {
           index = realCount;
@@ -302,9 +327,17 @@
         } else if (index === total - 1) {
           index = 1;
           updateSlide(true);
+        } else {
+          positionArrows();
         }
       }
+
       track.addEventListener('transitionend', onTransitionEnd);
+      window.addEventListener('resize', positionArrows);
+      track.querySelectorAll('img').forEach(function(img) {
+        if (!img.complete) img.addEventListener('load', positionArrows);
+      });
+
       function goPrev() {
         index = index - 1;
         if (index < 0) index = total - 1;

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JENIA WEICHSEL</title>
   <link rel="icon" type="image/png" href="picture2.png">
+  <link rel="stylesheet" href="https://use.typekit.net/ekp6eyt.css">
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP1YV96CS"></script>
   <script>
@@ -22,12 +23,31 @@
     body {
       min-height: 100vh;
       background: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 300;
+      font-family: var(--font-family);
+      font-weight: 400;
       color: #000;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+    }
+    :root {
+      --sidebar-w: 310px;
+      --sidebar-gap: calc(var(--sidebar-w) / 2);
+      --content-top: 1.25rem;
+      --content-x: 1.5rem;
+      --footer-h: 2.5rem;
+      --content-h: calc(100vh - var(--content-top) - var(--footer-h));
+      --font-title: "grad", "Grad", "Times New Roman", Times, serif;
+      --font-family: var(--font-title);
+      --text-size-content: 0.7rem;
+      --text-size-footer: 0.55rem;
+    }
+    @font-face {
+      font-family: "grad";
+      src: url("https://use.typekit.net/af/83a95b/000000000000000077359721/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
     .layout {
       min-height: 100vh;
@@ -38,20 +58,23 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 155px;
+      width: var(--sidebar-w);
       padding: 1.25rem 2.5rem 3rem;
       background: #fff;
       display: flex;
       flex-direction: column;
       gap: 0;
+      container-type: inline-size;
+      font-family: var(--font-family);
     }
     .sidebar-title {
       margin-bottom: 3.5rem;
       display: block;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      width: 100%;
+      font-family: var(--font-title);
+      font-size: clamp(1rem, 20cqi, 4.5rem);
+      font-weight: 400;
+      letter-spacing: 0.005em;
       text-transform: uppercase;
       color: #000;
       text-decoration: none;
@@ -75,14 +98,15 @@
       gap: 1.25rem;
     }
     .nav-section a {
+      font-family: var(--font-family);
       font-size: 0.8rem;
-      letter-spacing: -0.01em;
+      letter-spacing: 0.005em;
       color: #000;
       text-decoration: none;
       transition: color 0.2s;
     }
     .nav-section a:hover {
-      color: #722F37;
+      color: #000;
     }
     .nav-section-uppercase a {
       text-transform: uppercase;
@@ -94,30 +118,33 @@
     }
     .sidebar-instagram {
       display: block;
-      color: #722F37;
+      color: #000;
       transition: color 0.2s;
     }
     .sidebar-instagram:hover {
-      color: #8B3A42;
+      color: #000;
     }
     .sidebar-instagram svg {
       display: block;
       width: 12px;
       height: 12px;
     }
-    /* Main content - scrolls independently, starts below sidebar title; same padding so content stays in one place */
+    /* Main content — top aligns with sidebar title */
     .main {
-      margin-left: 155px;
+      margin-left: var(--sidebar-w);
       min-height: 100vh;
       height: 100vh;
       display: flex;
-      align-items: stretch;
+      align-items: flex-start;
       justify-content: center;
-      padding: 4.75rem 4rem 0 4rem;
+      padding: var(--content-top) var(--sidebar-gap) var(--footer-h) var(--sidebar-gap);
       background: #fff;
       overflow-y: auto;
       overflow-x: hidden;
       max-width: 100%;
+      box-sizing: border-box;
+      font-family: var(--font-family);
+      font-size: var(--text-size-content);
     }
     .main-content {
       width: 100%;
@@ -132,13 +159,11 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding: 0 0.5rem 0 0.5rem;
     }
     .main-home img {
       display: block;
-      max-width: 86%;
-      max-height: 86vh;
-      margin-top: -4rem;
+      max-width: 100%;
+      max-height: 100%;
       width: auto;
       height: auto;
       object-fit: contain;
@@ -167,15 +192,16 @@
       left: 0;
       right: 0;
       padding: 1rem 2rem 1rem 2.5rem;
-      font-size: 0.6rem;
-      letter-spacing: -0.01em;
+      font-family: var(--font-family);
+      font-size: var(--text-size-footer);
+      letter-spacing: 0.005em;
       color: #000;
       background: #fff;
     }
     /* Mobile: apply only below 1024px; desktop unchanged above */
     @media (max-width: 1023px) {
       body { overflow-x: hidden; }
-      .layout { display: flex; flex-direction: column; min-height: 100vh; }
+      .layout { display: flex; flex-direction: column; min-height: 100vh; height: 100vh; }
       .sidebar {
         position: relative;
         width: 100%;
@@ -184,8 +210,9 @@
         align-items: center;
         padding: 1rem 1.25rem 0.25rem;
         gap: 0 1.25rem;
+        flex-shrink: 0;
       }
-      .sidebar-title { width: 100%; margin-bottom: 0.75rem; font-size: 1.9rem; }
+      .sidebar-title { width: 100%; margin-bottom: 0.75rem; font-size: clamp(1rem, 20cqi, 2.25rem); }
       .sidebar-nav-row {
         width: 100%;
         display: flex;
@@ -201,27 +228,28 @@
         margin-left: 0;
         flex: 1;
         min-height: 0;
+        height: auto;
         display: flex;
-        padding: 0.25rem 0.5rem 4rem;
+        padding: 0 var(--content-x) var(--footer-h);
       }
-      .main-content { flex: 1; min-height: 0; display: flex; }
+      .main-content { flex: 1; min-height: 0; display: flex; height: 100%; }
       .main-home {
         flex: 1;
         min-height: 0;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        padding: 0 0.25rem;
+        height: 100%;
       }
       .main-home img {
-        max-width: 92%;
-        max-height: 92%;
+        max-width: 100%;
+        max-height: 100%;
         width: auto;
         height: auto;
         object-fit: contain;
-        object-position: center;
+        object-position: center top;
       }
-      .main-iframe.active { min-height: 60vh; flex: 1; min-height: 0; }
+      .main-iframe.active { flex: 1; min-height: 0; height: 100%; }
       .main { -webkit-overflow-scrolling: touch; }
     }
   </style>
@@ -229,14 +257,14 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <a href="index.html" class="sidebar-title">Jenia<br>Weichsel</a>
+      <a href="index.html" class="sidebar-title" target="_blank" rel="noopener noreferrer">Jenia<br>Weichsel</a>
       <div class="sidebar-nav-row">
         <nav class="nav-section">
-          <a href="2025.html">PAINTINGS</a>
+          <a href="2025.html" target="_blank" rel="noopener noreferrer">WORKS</a>
         </nav>
         <div class="sidebar-bottom">
           <nav class="nav-section nav-section-uppercase">
-            <a href="cv.html">ABOUT</a>
+            <a href="cv.html" target="_blank" rel="noopener noreferrer">ABOUT</a>
           </nav>
 <a href="https://www.instagram.com/jeniaweichsel/?hl=en" class="sidebar-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -256,35 +284,5 @@
     </main>
   </div>
   <footer class="page-footer">© 2026 JENIA WEICHSEL. All Rights Reserved.</footer>
-  <script>
-    (function() {
-      var mainHome = document.getElementById('mainHome');
-      var contentFrame = document.getElementById('contentFrame');
-      function showHome() {
-        mainHome.classList.remove('hidden');
-        contentFrame.classList.remove('active');
-        contentFrame.src = 'about:blank';
-        document.querySelector('.main').scrollTop = 0;
-      }
-      function showFrame(src) {
-        mainHome.classList.add('hidden');
-        contentFrame.classList.add('active');
-        contentFrame.src = src;
-        document.querySelector('.main').scrollTop = 0;
-      }
-      document.querySelector('.sidebar-title').addEventListener('click', function(e) {
-        e.preventDefault();
-        showHome();
-      });
-      document.querySelector('a[href="2025.html"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        showFrame('2025-content.html');
-      });
-      document.querySelector('a[href="cv.html"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        showFrame('cv-content.html');
-      });
-    })();
-  </script>
 </body>
 </html>

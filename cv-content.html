@@ -3,46 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.typekit.net/ekp6eyt.css">
   <style>
+    :root {
+      --font-title: "grad", "Grad", "Times New Roman", Times, serif;
+      --font-family: var(--font-title);
+      --text-size-content: 0.7rem;
+    }
+    @font-face {
+      font-family: "grad";
+      src: url("https://use.typekit.net/af/83a95b/000000000000000077359721/31/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; color: #000; background: #fff; padding: 4rem; max-width: 100%; overflow-x: hidden; overflow-wrap: break-word; }
-    .cv-content { max-width: 100%; width: 100%; margin: 0 auto; }
-    .cv-top { display: flex; align-items: stretch; gap: 1.5rem; flex-wrap: wrap; }
-    .cv-photo-wrap { flex-shrink: 0; max-width: 300px; min-height: 0; display: flex; flex-direction: column; align-self: stretch; }
-    .cv-content .cv-photo { flex: 1 0 0; min-height: 0; width: auto; max-width: 100%; object-fit: contain; object-position: top center; display: block; align-self: center; }
-    .cv-text { flex: 1; min-width: 0; max-width: 100%; overflow-wrap: break-word; }
-    .cv-content h2 { font-size: 0.8rem; font-weight: 400; letter-spacing: -0.01em; text-transform: uppercase; margin-bottom: 1rem; margin-top: 2rem; }
+    body {
+      font-family: var(--font-family);
+      font-weight: 400;
+      color: #000;
+      background: #fff;
+      padding: 0;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-wrap: break-word;
+      font-size: var(--text-size-content);
+    }
+    .cv-content { max-width: 100%; width: 100%; margin: 0 auto; font-family: var(--font-family); }
+    .cv-text { max-width: 100%; overflow-wrap: break-word; }
+    .cv-content h2 {
+      font-size: var(--text-size-content);
+      font-weight: 400;
+      letter-spacing: 0.005em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
     .cv-content h2:first-of-type { margin-top: 0; }
-    .cv-content p { font-size: 0.8rem; letter-spacing: -0.01em; line-height: 1.6; margin-bottom: 0.5rem; overflow-wrap: break-word; }
+    .cv-content p {
+      font-size: var(--text-size-content);
+      letter-spacing: 0.005em;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      overflow-wrap: break-word;
+    }
     .cv-content .cv-year { display: inline-block; min-width: 2.25em; }
     .cv-group-year { margin-top: 1rem; margin-bottom: 0; }
     .cv-content h2 + .cv-group-year { margin-top: 0; }
     .cv-content strong { font-weight: 400; }
-    .cv-content a { color: #722F37; text-decoration: none; overflow-wrap: break-word; }
-    .cv-content a:hover { color: #8B3A42; }
+    .cv-content a { color: #000; text-decoration: none; overflow-wrap: break-word; }
+    .cv-content a:hover { color: #000; }
     .cv-bio { margin-bottom: 2rem; max-width: 100%; }
-    .cv-bio p { font-size: 0.8rem; letter-spacing: -0.01em; line-height: 1.6; margin-bottom: 1rem; overflow-wrap: break-word; }
+    .cv-bio p {
+      font-size: var(--text-size-content);
+      letter-spacing: 0.005em;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      overflow-wrap: break-word;
+    }
     .cv-bio p:last-child { margin-bottom: 0; }
     @media (max-width: 1023px) {
       html { -webkit-overflow-scrolling: touch; overflow-y: auto; }
-      body { padding: 1.5rem 1rem 3rem; overflow-x: hidden; overflow-y: auto; font-size: 0.8rem; -webkit-overflow-scrolling: touch; }
+      body {
+        padding: 0 0 2rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-size: var(--text-size-content);
+        -webkit-overflow-scrolling: touch;
+      }
       .cv-content { transform: translateZ(0); }
-      .cv-content, .cv-content p, .cv-content h2, .cv-bio p { font-size: 0.8rem; }
-      .cv-top { flex-direction: column; align-items: flex-start; }
-      .cv-photo-wrap {
-        width: 100%;
-        max-width: 200px;
-        min-height: 140px;
-        align-self: flex-start;
-      }
-      .cv-content .cv-photo {
-        flex: 0 1 auto;
-        min-height: 140px;
-        width: 100%;
-        max-width: 200px;
-        height: auto;
-      }
-      .cv-text { flex: 0 0 auto; }
+      .cv-content, .cv-content p, .cv-content h2, .cv-bio p { font-size: var(--text-size-content); }
     }
   </style>
 </head>
@@ -53,28 +83,23 @@
       <p>I am influenced by icon painting and early Flemish and Renaissance portraiture, particularly their ability to compress emotion into stillness. I work with oil and sfumato to build images through softness, layering, and concealment.</p>
       <p>I am interested in how little needs to change within a controlled system for something to break through — not rupture, but a single displaced detail that opens the whole structure to feeling.</p>
     </div>
-    <div class="cv-top">
-      <div class="cv-photo-wrap">
-        <img src="jenia-weichsel-portrait.jpg" alt="JENIA WEICHSEL" class="cv-photo">
-      </div>
-      <div class="cv-text">
-        <h2>Exhibitions & Placements</h2>
-    <p class="cv-group-year"><strong>2026</strong></p>
-    <p>The Other Cheek — on view, Half Gallery, New York, NY</p>
-    <p>Serene Hush — acquired by private collector, placed through Half Gallery, New York, NY.</p>
-    <p>Group Exhibition, Pacific Art League, Palo Alto, California</p>
-    <p class="cv-group-year"><strong>2025</strong></p>
-    <p>Group Exhibition, Pacific Art League, Palo Alto, California</p>
-    <p>Group Exhibition, Kate Oh Gallery, New York, NY</p>
-        <h2>Education</h2>
-        <p>MA, Aerospace Engineering — Moscow Aviation Institute</p>
-        <p>Continuing Studies, Discovering the San Francisco Contemporary Art Market — Stanford University</p>
-    <h2>Press</h2>
-    <p><strong>2025</strong> <a href="https://whitehotmagazine.com/articles/jenia-weichsel-by-noah-becker/6955" target="_blank" rel="noopener noreferrer">Interview with Noah Becker, editor-in-chief of 'Whitehot Magazine'</a></p>
-    <p><strong>2025</strong> <a href="https://www.meer.com/en/90403-endless-knot" target="_blank" rel="noopener noreferrer">MEER Magazine: "Endless Knot" Review</a></p>
-    <h2>Contact</h2>
-    <p><a href="mailto:jenia.weichsel@gmail.com">jenia.weichsel@gmail.com</a></p>
-      </div>
+    <div class="cv-text">
+      <h2>Exhibitions & Placements</h2>
+      <p class="cv-group-year"><strong>2026</strong></p>
+      <p>The Other Cheek — on view, Half Gallery, New York, NY</p>
+      <p>Serene Hush — acquired by private collector, placed through Half Gallery, New York, NY.</p>
+      <p>Group Exhibition, Pacific Art League, Palo Alto, California</p>
+      <p class="cv-group-year"><strong>2025</strong></p>
+      <p>Group Exhibition, Pacific Art League, Palo Alto, California</p>
+      <p>Group Exhibition, Kate Oh Gallery, New York, NY</p>
+      <h2>Education</h2>
+      <p>MA, Aerospace Engineering — Moscow Aviation Institute</p>
+      <p>Continuing Studies, Discovering the San Francisco Contemporary Art Market — Stanford University</p>
+      <h2>Press</h2>
+      <p><strong>2025</strong> <a href="https://whitehotmagazine.com/articles/jenia-weichsel-by-noah-becker/6955" target="_blank" rel="noopener noreferrer">Interview with Noah Becker, editor-in-chief of 'Whitehot Magazine'</a></p>
+      <p><strong>2025</strong> <a href="https://www.meer.com/en/90403-endless-knot" target="_blank" rel="noopener noreferrer">MEER Magazine: "Endless Knot" Review</a></p>
+      <h2>Contact</h2>
+      <p><a href="mailto:jenia.weichsel@gmail.com" target="_blank" rel="noopener noreferrer">jenia.weichsel@gmail.com</a></p>
     </div>
   </div>
 </body>
