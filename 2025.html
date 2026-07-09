@@ -195,6 +195,16 @@
     }
     .gallery-arrow svg { width: 1.125rem; height: 1.125rem; display: block; }
     .gallery-arrow:hover { color: #000; }
+    @media (hover: none) and (pointer: coarse) {
+      .gallery-arrow { display: none; }
+      .gallery-viewport {
+        padding-left: 0;
+        padding-right: 0;
+        touch-action: pan-y;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+    }
     .page-footer {
       position: fixed;
       bottom: 0;
@@ -294,8 +304,19 @@
       var realCount = 7;
       var index = 1;
       var arrowGap = 8;
+      var touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var touchCurrentX = 0;
+      var touchDragging = false;
+      var swipeThreshold = 0.12;
+
+      function isTouchDevice() {
+        return touchQuery.matches;
+      }
 
       function positionArrows() {
+        if (isTouchDevice()) return;
         var slide = track.children[index];
         if (!slide || !viewport || !prevBtn || !nextBtn) return;
         var img = slide.querySelector('img');
@@ -336,6 +357,7 @@
       }
 
       function scheduleArrowPosition() {
+        if (isTouchDevice()) return;
         requestAnimationFrame(function() {
           requestAnimationFrame(positionArrows);
         });
@@ -363,12 +385,6 @@
         }
       }
 
-      track.addEventListener('transitionend', onTransitionEnd);
-      window.addEventListener('resize', positionArrows);
-      track.querySelectorAll('img').forEach(function(img) {
-        if (!img.complete) img.addEventListener('load', positionArrows);
-      });
-
       function goPrev() {
         index = index - 1;
         if (index < 0) index = total - 1;
@@ -379,6 +395,64 @@
         if (index >= total) index = 0;
         updateSlide();
       }
+
+      function onTouchStart(e) {
+        if (!isTouchDevice() || e.touches.length !== 1) return;
+        touchDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchCurrentX = touchStartX;
+        track.classList.add('no-transition');
+      }
+
+      function onTouchMove(e) {
+        if (!touchDragging) return;
+        touchCurrentX = e.touches[0].clientX;
+        var deltaX = touchCurrentX - touchStartX;
+        var deltaY = e.touches[0].clientY - touchStartY;
+        if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+        var vpWidth = viewport.offsetWidth || 1;
+        var pct = -(index * 100) + (deltaX / vpWidth) * 100;
+        track.style.transform = 'translateX(' + pct + '%)';
+      }
+
+      function onTouchEnd(e) {
+        if (!touchDragging) return;
+        touchDragging = false;
+        track.classList.remove('no-transition');
+        var touch = e.changedTouches[0];
+        var deltaX = touch.clientX - touchStartX;
+        var deltaY = touch.clientY - touchStartY;
+        if (Math.abs(deltaX) < Math.abs(deltaY)) {
+          updateSlide();
+          return;
+        }
+        var vpWidth = viewport.offsetWidth || 1;
+        if (Math.abs(deltaX) > vpWidth * swipeThreshold) {
+          if (deltaX < 0) goNext();
+          else goPrev();
+        } else {
+          updateSlide();
+        }
+      }
+
+      function onTouchCancel() {
+        if (!touchDragging) return;
+        touchDragging = false;
+        track.classList.remove('no-transition');
+        updateSlide();
+      }
+
+      track.addEventListener('transitionend', onTransitionEnd);
+      window.addEventListener('resize', positionArrows);
+      track.querySelectorAll('img').forEach(function(img) {
+        if (!img.complete) img.addEventListener('load', positionArrows);
+      });
+      viewport.addEventListener('touchstart', onTouchStart, { passive: true });
+      viewport.addEventListener('touchmove', onTouchMove, { passive: true });
+      viewport.addEventListener('touchend', onTouchEnd, { passive: true });
+      viewport.addEventListener('touchcancel', onTouchCancel, { passive: true });
+
       prevBtn.addEventListener('click', goPrev);
       nextBtn.addEventListener('click', goNext);
       updateSlide(true);
