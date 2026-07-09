@@ -37,6 +37,7 @@
       --font-family: var(--font-title);
       --text-size-content: 0.7rem;
       --text-size-footer: 0.55rem;
+      --mobile-section-gap: 1.25rem;
     }
     @font-face {
       font-family: "grad";
@@ -180,7 +181,7 @@
       .sidebar .nav-section { flex-direction: row; gap: 1rem; margin-bottom: 0; flex-wrap: nowrap; }
       .sidebar .nav-section:first-of-type { margin-bottom: 0; }
       .sidebar .sidebar-bottom { flex-direction: row; margin-top: 0; gap: 1rem; flex-wrap: nowrap; }
-      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 0 var(--content-x) var(--footer-h); -webkit-overflow-scrolling: touch; overflow-y: auto; }
+      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: var(--mobile-section-gap) var(--content-x) var(--footer-h); -webkit-overflow-scrolling: touch; overflow-y: auto; }
     }
   </style>
 </head>

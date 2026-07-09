@@ -41,6 +41,7 @@
       --font-family: var(--font-title);
       --text-size-content: 0.7rem;
       --text-size-footer: 0.55rem;
+      --mobile-section-gap: 1.25rem;
     }
     @font-face {
       font-family: "grad";
@@ -230,7 +231,7 @@
         min-height: 0;
         height: auto;
         display: flex;
-        padding: 0 var(--content-x) var(--footer-h);
+        padding: var(--mobile-section-gap) var(--content-x) var(--footer-h);
       }
       .main-content { flex: 1; min-height: 0; display: flex; height: 100%; }
       .main-home {

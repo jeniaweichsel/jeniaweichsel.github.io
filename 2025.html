@@ -37,6 +37,8 @@
       --font-family: var(--font-title);
       --text-size-content: 0.7rem;
       --text-size-footer: 0.55rem;
+      --mobile-section-gap: 1.25rem;
+      --mobile-arrow-gutter: 1.75rem;
     }
     @font-face {
       font-family: "grad";
@@ -230,7 +232,12 @@
       .sidebar .nav-section { flex-direction: row; gap: 1rem; margin-bottom: 0; flex-wrap: nowrap; }
       .sidebar .nav-section:first-of-type { margin-bottom: 0; }
       .sidebar .sidebar-bottom { flex-direction: row; margin-top: 0; gap: 1rem; flex-wrap: nowrap; }
-      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: 0 var(--content-x) var(--footer-h); }
+      .main { margin-left: 0; flex: 1; min-height: 0; height: auto; padding: var(--mobile-section-gap) var(--content-x) var(--footer-h); }
+      .gallery-viewport {
+        padding-left: var(--mobile-arrow-gutter);
+        padding-right: var(--mobile-arrow-gutter);
+        box-sizing: border-box;
+      }
       .gallery-arrow { width: 1.5rem; height: 3rem; }
       .gallery-arrow svg { width: 1.25rem; height: 1.25rem; }
     }
@@ -296,12 +303,36 @@
         var vpRect = viewport.getBoundingClientRect();
         var imgRect = img.getBoundingClientRect();
         var centerY = imgRect.top - vpRect.top + (imgRect.height / 2);
+        var isMobile = window.matchMedia('(max-width: 1023px)').matches;
+        var imgLeft = imgRect.left - vpRect.left;
+        var imgRight = imgRect.right - vpRect.left;
+        var vpWidth = vpRect.width;
+        var prevW = prevBtn.offsetWidth;
+        var nextW = nextBtn.offsetWidth;
+        var prevLeft;
+        var nextLeft;
+
         prevBtn.style.top = centerY + 'px';
         nextBtn.style.top = centerY + 'px';
         prevBtn.style.transform = 'translateY(-50%)';
         nextBtn.style.transform = 'translateY(-50%)';
-        prevBtn.style.left = Math.max(0, imgRect.left - vpRect.left - arrowGap - prevBtn.offsetWidth) + 'px';
-        nextBtn.style.left = (imgRect.right - vpRect.left + arrowGap) + 'px';
+
+        if (isMobile) {
+          prevLeft = imgLeft - arrowGap - prevW;
+          nextLeft = imgRight + arrowGap;
+          prevLeft = Math.max(0, prevLeft);
+          nextLeft = Math.min(vpWidth - nextW, nextLeft);
+          if (prevLeft + prevW >= nextLeft) {
+            prevLeft = 0;
+            nextLeft = vpWidth - nextW;
+          }
+        } else {
+          prevLeft = Math.max(0, imgLeft - arrowGap - prevW);
+          nextLeft = imgRight + arrowGap;
+        }
+
+        prevBtn.style.left = prevLeft + 'px';
+        nextBtn.style.left = nextLeft + 'px';
       }
 
       function scheduleArrowPosition() {
