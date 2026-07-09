@@ -147,9 +147,22 @@
       var touchCurrentX = 0;
       var touchDragging = false;
       var swipeThreshold = 0.12;
+      var wheelAccum = 0;
+      var wheelIdleTimer = null;
+      var wheelThreshold = 60;
+      var wheelLocked = false;
+      var padDragging = false;
+      var padStartX = 0;
+      var padCurrentX = 0;
 
       function isTouchDevice() {
         return touchQuery.matches;
+      }
+
+      function isIPad() {
+        var ua = navigator.userAgent || '';
+        if (/iPad/i.test(ua)) return true;
+        return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
       }
 
       function positionArrows() {
@@ -272,6 +285,63 @@
         updateSlide();
       }
 
+      function onWheel(e) {
+        if (!isIPad()) return;
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+        if (Math.abs(e.deltaX) < 1) return;
+        e.preventDefault();
+        if (wheelLocked) return;
+
+        wheelAccum += e.deltaX;
+        clearTimeout(wheelIdleTimer);
+        wheelIdleTimer = setTimeout(function() {
+          wheelAccum = 0;
+        }, 180);
+
+        if (Math.abs(wheelAccum) >= wheelThreshold) {
+          if (wheelAccum > 0) goNext();
+          else goPrev();
+          wheelAccum = 0;
+          wheelLocked = true;
+          setTimeout(function() { wheelLocked = false; }, 450);
+        }
+      }
+
+      function onPointerDown(e) {
+        if (!isIPad() || e.pointerType !== 'mouse' || e.button !== 0) return;
+        padDragging = true;
+        padStartX = e.clientX;
+        padCurrentX = padStartX;
+        viewport.setPointerCapture(e.pointerId);
+        track.classList.add('no-transition');
+      }
+
+      function onPointerMove(e) {
+        if (!padDragging || e.pointerType !== 'mouse') return;
+        padCurrentX = e.clientX;
+        var deltaX = padCurrentX - padStartX;
+        var vpWidth = viewport.offsetWidth || 1;
+        var pct = -(index * 100) + (deltaX / vpWidth) * 100;
+        track.style.transform = 'translateX(' + pct + '%)';
+      }
+
+      function onPointerUp(e) {
+        if (!padDragging || e.pointerType !== 'mouse') return;
+        padDragging = false;
+        if (viewport.hasPointerCapture(e.pointerId)) {
+          viewport.releasePointerCapture(e.pointerId);
+        }
+        track.classList.remove('no-transition');
+        var deltaX = padCurrentX - padStartX;
+        var vpWidth = viewport.offsetWidth || 1;
+        if (Math.abs(deltaX) > vpWidth * swipeThreshold) {
+          if (deltaX < 0) goNext();
+          else goPrev();
+        } else {
+          updateSlide();
+        }
+      }
+
       track.addEventListener('transitionend', onTransitionEnd);
       window.addEventListener('resize', positionArrows);
       track.querySelectorAll('img').forEach(function(img) {
@@ -281,6 +351,11 @@
       viewport.addEventListener('touchmove', onTouchMove, { passive: true });
       viewport.addEventListener('touchend', onTouchEnd, { passive: true });
       viewport.addEventListener('touchcancel', onTouchCancel, { passive: true });
+      viewport.addEventListener('wheel', onWheel, { passive: false });
+      viewport.addEventListener('pointerdown', onPointerDown);
+      viewport.addEventListener('pointermove', onPointerMove);
+      viewport.addEventListener('pointerup', onPointerUp);
+      viewport.addEventListener('pointercancel', onPointerUp);
 
       prevBtn.addEventListener('click', goPrev);
       nextBtn.addEventListener('click', goNext);
