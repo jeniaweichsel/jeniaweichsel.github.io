@@ -347,9 +347,26 @@
       var padDragging = false;
       var padStartX = 0;
       var padCurrentX = 0;
+      var autoplayMs = 5000;
+      var autoplayTimer = null;
 
       function isTouchDevice() {
         return touchQuery.matches;
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(function() {
+          if (touchDragging || padDragging) return;
+          goNext();
+        }, autoplayMs);
       }
 
       function isIPad() {
@@ -432,11 +449,13 @@
         index = index - 1;
         if (index < 0) index = total - 1;
         updateSlide();
+        startAutoplay();
       }
       function goNext() {
         index = index + 1;
         if (index >= total) index = 0;
         updateSlide();
+        startAutoplay();
       }
 
       function onTouchStart(e) {
@@ -561,6 +580,7 @@
       prevBtn.addEventListener('click', goPrev);
       nextBtn.addEventListener('click', goNext);
       updateSlide(true);
+      startAutoplay();
     })();
   </script>
 </body>
