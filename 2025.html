@@ -385,8 +385,8 @@
       var viewport = document.querySelector('.gallery-viewport');
       var prevBtn = document.getElementById('galleryPrev');
       var nextBtn = document.getElementById('galleryNext');
-      var total = 8;
-      var realCount = 6;
+      var total = track.children.length;
+      var realCount = total - 2;
       var index = 1;
       var arrowGap = 8;
       var touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
